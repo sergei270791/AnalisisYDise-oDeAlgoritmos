@@ -138,12 +138,13 @@ void grafo::BFS(int r){
 bool grafo::buscaCircuitoBFS(int v){
     cola.push(v);
     pvertice pv=buscarVertice(v);
+    pvertice pa;
+    parista a;
     pv->padre=v;
     while(!cola.empty()){
         v=cola.front();
+        pv=buscarVertice(v);
         cola.pop();
-        pvertice pa;
-        parista a;
         a=pv->adyacente;
         while(a!=NULL){
             pa=buscarVertice(a->datoDestino);
@@ -151,7 +152,7 @@ bool grafo::buscaCircuitoBFS(int v){
                 cola.push(pa->datoOrigen);
                 pa->padre=v;
             }
-            else if(pv->datoOrigen!=pv->padre && pv->padre!=pa->datoOrigen){
+            else if(pv->padre!=pa->datoOrigen){
                 return true;
             }
             a=a->sgteArista;
